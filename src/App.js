@@ -1,26 +1,44 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+
+const Context = React.createContext();
+
+function Son() {
+    return (
+        <Context.Consumer>
+            {value =>
+                <div>
+                    <h3>I am a son</h3>
+                    <h4>My gift from grandfather: <span style={{color: "goldenrod"}}>{value}</span></h4>
+
+                </div>}
+        </Context.Consumer>);
+}
+
+function Father() {
+    return (
+        <div>
+            <h2>I am a father, I have a son</h2>
+            <Son/>
+        </div>
+    );
+}
+
+function Grandfather() {
+    return (
+        <div>
+            <h1>I am a grandfather, I have a son</h1>
+            <Father/>
+        </div>);
+}
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return (
+        <div>
+            <Context.Provider value="gold watch">
+                <Grandfather/>
+            </Context.Provider>
+        </div>
+    );
 }
 
 export default App;
